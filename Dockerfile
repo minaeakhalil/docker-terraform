@@ -43,6 +43,12 @@ RUN python /src/get-pip.py \
 
 WORKDIR /terraform-src
 
-ENV TERRAFORM_WORKSPACE develop
+# Terraform Environment Variables
+ENV TERRAFORM_WORKSPACE default
+
+# AWS Environments Variables
+ENV AWS_ACCESS_KEY_ID=""
+ENV AWS_SECRET_ACCESS_KEY=""
+ENV AWS_ROLE_ARN=""
 
 ENTRYPOINT terraform-wrapper
