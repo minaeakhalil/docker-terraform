@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 function clean()
 {
@@ -33,15 +33,12 @@ function assume_role()
 
 clean
 
-echo "ROLE is: ${AWS_ROLE_ARN}"
-	echo "BEFORE: ${AWS_ACCESS_KEY_ID}"
 if [ -n "$AWS_ROLE_ARN" ]; then
 	assume_role
 fi
-	echo "AFTER: ${AWS_ACCESS_KEY_ID}"
 
 if [ $? ]; then
 	terraform init \
 		&& terraform workspace select $TERRAFORM_WORKSPACE \
-		&& terraform @$
+		&& terraform $@
 fi

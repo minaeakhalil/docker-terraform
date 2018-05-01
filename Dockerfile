@@ -35,6 +35,7 @@ COPY scripts/terraform-wrapper.sh /usr/local/bin/terraform-wrapper
 
 RUN apt-get update \
     && apt-get install -y \
+        ca-certificates \
         python \
         jq
 
@@ -51,4 +52,4 @@ ENV AWS_ACCESS_KEY_ID=""
 ENV AWS_SECRET_ACCESS_KEY=""
 ENV AWS_ROLE_ARN=""
 
-ENTRYPOINT terraform-wrapper
+CMD terraform-wrapper
