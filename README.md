@@ -19,25 +19,41 @@
 ## How to use
 ### With AWS Assume Role
 ```BASH
-$ docker run --rm -v TERRAFORM_SRC_CODE:/terraform-src -e AWS_ACCESS_KEY_ID="YOUR_AWS_ACCESS_KEY_ID" -e AWS_SECRET_ACCESS_KEY="YOUR_AWS_SECRET_ACCESS_KEY" -e AWS_ROLE_ARN="YOUR_AWS_ROLE_ARN" minakhalil/terraform terraform-wrapper plan
+$ docker run --rm -v "$PWD":/terraform-src \
+    -e AWS_ACCESS_KEY_ID="YOUR_AWS_ACCESS_KEY_ID" \
+    -e AWS_SECRET_ACCESS_KEY="YOUR_AWS_SECRET_ACCESS_KEY" \
+    -e AWS_ROLE_ARN="YOUR_AWS_ROLE_ARN" \
+    minakhalil/terraform terraform-wrapper plan
 ```
 ### Without AWS Assume Role
 ```BASH
-$ docker run --rm -v TERRAFORM_SRC_CODE:/terraform-src -e AWS_ACCESS_KEY_ID="YOUR_AWS_ACCESS_KEY_ID" -e AWS_SECRET_ACCESS_KEY="YOUR_AWS_SECRET_ACCESS_KEY" minakhalil/terraform terraform-wrapper plan
+$ docker run --rm -v "$PWD":/terraform-src \
+    -e AWS_ACCESS_KEY_ID="YOUR_AWS_ACCESS_KEY_ID" \
+    -e AWS_SECRET_ACCESS_KEY="YOUR_AWS_SECRET_ACCESS_KEY" \
+    minakhalil/terraform terraform-wrapper plan
 ```
 
 ## Additional Examples
 1. Creating new Worksapce
 ```BASH
-$ docker run --rm -v "$PWD":/terraform-src -e AWS_ACCESS_KEY="YOUR_AWS_ACCESS_KEY_ID" -e AWS_SECRET_ACCESS_KEY="YOUR_AWS_SECRET_ACCESS_KEY" minakhalil/terraform terraform-wrapper workspace new WORKSPACE_NAME
+$ docker run --rm -v "$PWD":/terraform-src \
+    -e AWS_ACCESS_KEY="YOUR_AWS_ACCESS_KEY_ID" \
+    -e AWS_SECRET_ACCESS_KEY="YOUR_AWS_SECRET_ACCESS_KEY" \
+    minakhalil/terraform terraform-wrapper workspace new WORKSPACE_NAME
 ```
 
 2. Applying Terraform changes
 ```BASH
-$ docker run --rm -v "$PWD":/terraform-src -e AWS_ACCESS_KEY="YOUR_AWS_ACCESS_KEY_ID" -e AWS_SECRET_ACCESS_KEY="YOUR_AWS_SECRET_ACCESS_KEY" minakhalil/terraform terraform-wrapper apply -auto-approve
+$ docker run --rm -v "$PWD":/terraform-src \
+    -e AWS_ACCESS_KEY="YOUR_AWS_ACCESS_KEY_ID" \
+    -e AWS_SECRET_ACCESS_KEY="YOUR_AWS_SECRET_ACCESS_KEY" \
+    minakhalil/terraform terraform-wrapper apply -auto-approve
 ```
 
 3. Desstroying Terraform stack
 ```BASH
-$ docker run --rm -v "$PWD":/terraform-src -e AWS_ACCESS_KEY="YOUR_AWS_ACCESS_KEY_ID" -e AWS_SECRET_ACCESS_KEY="YOUR_AWS_SECRET_ACCESS_KEY" minakhalil/terraform terraform-wrapper destroy -auto-approve
+$ docker run --rm -v "$PWD":/terraform-src \
+    -e AWS_ACCESS_KEY="YOUR_AWS_ACCESS_KEY_ID" \
+    -e AWS_SECRET_ACCESS_KEY="YOUR_AWS_SECRET_ACCESS_KEY" \
+    minakhalil/terraform terraform-wrapper destroy -auto-approve
 ```
