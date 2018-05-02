@@ -2,6 +2,15 @@
 > This project intends to provide a streamlined execution of Terrafrom commands especially when using AWS Role Assumption.
 > Using this Docker container would provide a wrapper for Terraform CLI tools; in other words, any Terraform commands are a valid commands while using this container.
 
+
+## Table of Contents
+* [Quick References](#quick-references)
+* [How to use](#how-to-use)
+    + [With AWS Assume Role](#with-aws-assume-role)
+    + [Without AWS Assume Role](#without-aws-assume-role)
+* [Additional Examples](#additional-examples)
+
+
 ## Quick References
 * [Terraform Docs](https://www.terraform.io/docs/index.html)
 * [Docker Docs](https://docs.docker.com/)
