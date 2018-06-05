@@ -23,14 +23,14 @@ $ docker run --rm -v "$PWD":/terraform-src \
     -e AWS_ACCESS_KEY_ID="YOUR_AWS_ACCESS_KEY_ID" \
     -e AWS_SECRET_ACCESS_KEY="YOUR_AWS_SECRET_ACCESS_KEY" \
     -e AWS_ROLE_ARN="YOUR_AWS_ROLE_ARN" \
-    minakhalil/terraform terraform-wrapper plan
+    minakhalil/docker-terraform terraform-wrapper plan
 ```
 ### Without AWS Assume Role
 ```BASH
 $ docker run --rm -v "$PWD":/terraform-src \
     -e AWS_ACCESS_KEY_ID="YOUR_AWS_ACCESS_KEY_ID" \
     -e AWS_SECRET_ACCESS_KEY="YOUR_AWS_SECRET_ACCESS_KEY" \
-    minakhalil/terraform terraform-wrapper plan
+    minakhalil/docker-terraform terraform-wrapper plan
 ```
 
 ## Additional Examples
@@ -39,7 +39,7 @@ $ docker run --rm -v "$PWD":/terraform-src \
 $ docker run --rm -v "$PWD":/terraform-src \
     -e AWS_ACCESS_KEY="YOUR_AWS_ACCESS_KEY_ID" \
     -e AWS_SECRET_ACCESS_KEY="YOUR_AWS_SECRET_ACCESS_KEY" \
-    minakhalil/terraform terraform-wrapper workspace new WORKSPACE_NAME
+    minakhalil/docker-terraform terraform-wrapper workspace new WORKSPACE_NAME
 ```
 
 2. Applying Terraform changes
@@ -47,7 +47,7 @@ $ docker run --rm -v "$PWD":/terraform-src \
 $ docker run --rm -v "$PWD":/terraform-src \
     -e AWS_ACCESS_KEY="YOUR_AWS_ACCESS_KEY_ID" \
     -e AWS_SECRET_ACCESS_KEY="YOUR_AWS_SECRET_ACCESS_KEY" \
-    minakhalil/terraform terraform-wrapper apply -auto-approve
+    minakhalil/docker-terraform terraform-wrapper apply -auto-approve
 ```
 
 3. Desstroying Terraform stack
@@ -55,5 +55,5 @@ $ docker run --rm -v "$PWD":/terraform-src \
 $ docker run --rm -v "$PWD":/terraform-src \
     -e AWS_ACCESS_KEY="YOUR_AWS_ACCESS_KEY_ID" \
     -e AWS_SECRET_ACCESS_KEY="YOUR_AWS_SECRET_ACCESS_KEY" \
-    minakhalil/terraform terraform-wrapper destroy -auto-approve
+    minakhalil/docker-terraform terraform-wrapper destroy -auto-approve
 ```
