@@ -31,6 +31,14 @@ function assume_role()
 	export AWS_SESSION_TOKEN="$(echo $session | jq -r '.Credentials.SessionToken')"
 }
 
+function transform_variables() {
+    if [ -n "$VERSION" ]; then
+        echo "=> Performing Variable Transformation"
+
+        sed -i "s|#{VERSION}|${VERSION}|" backend.tf
+    fi
+}
+
 clean
 
 if [ -n "$AWS_ROLE_ARN" ]; then
@@ -38,7 +46,8 @@ if [ -n "$AWS_ROLE_ARN" ]; then
 fi
 
 if [ $? ]; then
-	terraform init \
+	transform_variables \
+        && terraform init \
 		&& terraform workspace select $TERRAFORM_WORKSPACE \
 		&& terraform $@
 fi
