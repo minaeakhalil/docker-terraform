@@ -35,7 +35,7 @@ RUN apt-get update \
 RUN python /src/get-pip.py \
     && pip install awscli
 
-WORKDIR /terraform-src
+WORKDIR /infra
 
 # Terraform Environment Variables
 ENV TERRAFORM_WORKSPACE default
