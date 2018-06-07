@@ -1,10 +1,5 @@
 #!/usr/bin/env bash
 
-function clean()
-{
-	rm -rf .terraform
-}
-
 function assume_role()
 {
 	echo "=> Assuming Role: ${AWS_ROLE_ARN}"
@@ -39,7 +34,8 @@ function transform_variables() {
     fi
 }
 
-clean
+# Take a snapshot of the terraform scripts before running
+cp -r /terraform-src/* /infra/
 
 if [ -n "$AWS_ROLE_ARN" ]; then
 	assume_role
