@@ -26,7 +26,7 @@ COPY --from=build-env /usr/local/bin /usr/local/bin
 
 COPY scripts/terraform-wrapper.sh /usr/local/bin/terraform-wrapper
 
-RUN export PATH=/usr/local/bin;$PATH
+RUN chmod +x /usr/local/bin/terraform-wrapper
 
 RUN apt-get update \
     && apt-get install -y \
