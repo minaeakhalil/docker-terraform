@@ -32,7 +32,8 @@ RUN apt-get update \
     && apt-get install -y \
         ca-certificates \
         python \
-        jq
+        jq \
+        git
 
 RUN python /src/get-pip.py \
     && pip install awscli
