@@ -51,7 +51,7 @@ $ docker run --rm -v "$PWD":/terraform-src \
     minakhalil/docker-terraform terraform apply -auto-approve
 ```
 
-3. Desstroying Terraform stack
+3. Destroying Terraform stack
 ```BASH
 $ docker run --rm -v "$PWD":/terraform-src \
     -e AWS_ACCESS_KEY="YOUR_AWS_ACCESS_KEY_ID" \
