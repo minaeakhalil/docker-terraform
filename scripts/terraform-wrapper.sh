@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 
-function assume_role()
-{
+function assume_role() {
 	echo "=> Assuming Role: ${AWS_ROLE_ARN}"
 
 	if [ -z $AWS_ACCESS_KEY_ID ] || [ -z $AWS_SECRET_ACCESS_KEY ]; then
@@ -34,6 +33,20 @@ function transform_variables() {
     fi
 }
 
+function terraform_workspace() {
+    if [ ! -z ${TERRAFORM_WORKSPACE} ]; then
+        worksapce_exist=$(/usr/bin/terraform workspace list | grep "${TERRAFORM_WORKSPACE}" | wc -l)
+
+        if [ "${workspace_exist}" == 0 ]; then
+            /usr/bin/terraform workspace new ${TERRAFORM_WORKSPACE}
+        fi
+
+        /usr/bin/terraform workspace select ${TERRAFORM_WORKSPACE}
+    else
+        echo "=> No workspace info has been provided! Using 'default' workspace."
+    fi
+}
+
 # Take a snapshot of the terraform scripts before running
 cp -r /terraform-src/* /infra/
 
@@ -44,6 +57,6 @@ fi
 if [ $? ]; then
 	transform_variables \
         && /usr/bin/terraform init \
-		&& /usr/bin/terraform workspace select $TERRAFORM_WORKSPACE \
+		&& terraform_workspace \
 		&& /usr/bin/terraform $@
 fi

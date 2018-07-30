@@ -15,14 +15,14 @@ RUN mkdir /src \
 
 # Install Terraform
 RUN wget -O /tmp/terraform.zip https://releases.hashicorp.com/terraform/0.11.7/terraform_0.11.7_linux_amd64.zip \
-    && unzip /tmp/terraform.zip -d /usr/bin/
+    && unzip /tmp/terraform.zip -d /usr/local/bin/
 
 # Final Stage
 FROM ubuntu:17.10 AS runtime
 
 COPY --from=build-env /src /src
 
-COPY --from=build-env /usr/bin /usr/bin
+COPY --from=build-env /usr/local/bin /usr/bin
 
 COPY scripts/terraform-wrapper.sh /usr/local/bin/terraform
 
