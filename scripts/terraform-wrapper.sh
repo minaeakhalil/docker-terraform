@@ -43,7 +43,7 @@ fi
 
 if [ $? ]; then
 	transform_variables \
-        && terraform init \
-		&& terraform workspace select $TERRAFORM_WORKSPACE \
-		&& terraform $@
+        && /usr/bin/terraform init \
+		&& /usr/bin/terraform workspace select $TERRAFORM_WORKSPACE \
+		&& /usr/bin/terraform $@
 fi
