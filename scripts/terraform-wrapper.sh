@@ -47,16 +47,20 @@ function terraform_workspace() {
     fi
 }
 
-# Take a snapshot of the terraform scripts before running
-cp -r /terraform-src/* /infra/
+if [ "$(find /terraform-src -maxdepth 1 -name '*.tf' -type f | wc -l)" > 0 ]; then
+    # Take a snapshot of the terraform scripts before running
+    cp -r /terraform-src/* /infra/
 
-if [ -n "$AWS_ROLE_ARN" ]; then
-	assume_role
-fi
+    if [ -n "$AWS_ROLE_ARN" ]; then
+        assume_role
+    fi
 
-if [ $? ]; then
-	transform_variables \
-        && /usr/bin/terraform init \
-		&& terraform_workspace \
-		&& /usr/bin/terraform $@
+    if [ $? ]; then
+        transform_variables \
+            && /usr/bin/terraform init \
+            && terraform_workspace \
+            && /usr/bin/terraform $@
+    fi
+else
+    echo "=> There are no Terraform Configuration files!"
 fi
