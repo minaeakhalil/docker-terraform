@@ -22,17 +22,18 @@ FROM ubuntu:17.10 AS runtime
 
 COPY --from=build-env /src /src
 
-COPY --from=build-env /usr/local/bin /usr/local/bin
+COPY --from=build-env /usr/local/bin /usr/bin
 
-COPY scripts/terraform-wrapper.sh /usr/local/bin/terraform-wrapper
+COPY scripts/terraform-wrapper.sh /usr/local/bin/terraform
 
-RUN chmod +x /usr/local/bin/terraform-wrapper
+RUN chmod +x /usr/local/bin/terraform
 
 RUN apt-get update \
     && apt-get install -y \
         ca-certificates \
         python \
-        jq
+        jq \
+        git
 
 RUN python /src/get-pip.py \
     && pip install awscli
@@ -47,4 +48,4 @@ ENV AWS_ACCESS_KEY_ID=""
 ENV AWS_SECRET_ACCESS_KEY=""
 ENV AWS_ROLE_ARN=""
 
-CMD terraform-wrapper
+CMD /usr/local/bin/terraform
