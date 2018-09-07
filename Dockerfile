@@ -14,7 +14,7 @@ RUN mkdir /src \
     && curl https://bootstrap.pypa.io/get-pip.py -o /src/get-pip.py
 
 # Install Terraform
-RUN wget -O /tmp/terraform.zip https://releases.hashicorp.com/terraform/0.11.7/terraform_0.11.7_linux_amd64.zip \
+RUN wget -O /tmp/terraform.zip https://releases.hashicorp.com/terraform/0.11.8/terraform_0.11.8_linux_amd64.zip \
     && unzip /tmp/terraform.zip -d /usr/local/bin/
 
 # Final Stage
