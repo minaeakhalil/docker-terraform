@@ -1,42 +1,25 @@
 # Build Stage
-FROM ubuntu:17.10 AS build-env
+FROM amazonlinux:2 AS build-env
 
-RUN apt-get update \
-    && apt-get install -y
+# Install required packages
+RUN yum install -y \
+  wget \
+  unzip
 
-# Install Terraform
-RUN apt-get install -y \
-      wget \
-      unzip \
-      curl
-
-RUN mkdir /src \
-    && curl https://bootstrap.pypa.io/get-pip.py -o /src/get-pip.py
-
-# Install Terraform
-RUN wget -O /tmp/terraform.zip https://releases.hashicorp.com/terraform/0.11.9/terraform_0.11.9_linux_amd64.zip \
-    && unzip /tmp/terraform.zip -d /usr/local/bin/
+# Download and install Terraform
+RUN wget -O /tmp/terraform.zip https://releases.hashicorp.com/terraform/0.11.11/terraform_0.11.11_linux_amd64.zip \
+  && unzip /tmp/terraform.zip -d /usr/local/bin/
 
 # Final Stage
-FROM ubuntu:17.10 AS runtime
+FROM amazonlinux:2 AS runtime
 
-COPY --from=build-env /src /src
-
+# Copy Terraform Binary from build env
 COPY --from=build-env /usr/local/bin /usr/bin
 
+# Cope terraform custom wrapper
 COPY scripts/terraform-wrapper.sh /usr/local/bin/terraform
 
 RUN chmod +x /usr/local/bin/terraform
-
-RUN apt-get update \
-    && apt-get install -y \
-        ca-certificates \
-        python \
-        jq \
-        git
-
-RUN python /src/get-pip.py \
-    && pip install awscli
 
 WORKDIR /infra
 
